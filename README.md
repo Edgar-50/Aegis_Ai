@@ -17,7 +17,7 @@
 ![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-Tracing-000000?style=flat-square&logo=opentelemetry&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white)
 
-[Architecture](#system-architecture) · [Detection Engine](#detection-and-risk-engine) · [SOC Workflows](#security-operations-workflows) · [Integrations](#enterprise-integrations) · [Run Locally](#running-locally)
+[Live Deployment](#live-deployment) · [Architecture](#system-architecture) · [Detection Engine](#detection-and-risk-engine) · [SOC Workflows](#security-operations-workflows) · [Integrations](#enterprise-integrations) · [Run Locally](#running-locally)
 
 </div>
 
@@ -58,6 +58,68 @@ Immutable audit trail
 ```
 
 AegisAI is not intended to be a decorative cybersecurity dashboard. The backend contains real event ingestion, persistence, streaming, correlation, evidence storage and provider integration paths.
+
+---
+
+# Live Deployment
+
+AegisAI Enterprise v1.0 is deployed as a split production stack with the Next.js SOC interface on **Vercel** and the FastAPI security engine on **Render**.
+
+| Component | Production endpoint | Status |
+|---|---|---|
+| **SOC Dashboard** | [aegis-ai-tau-orpin.vercel.app](https://aegis-ai-tau-orpin.vercel.app) | Live |
+| **FastAPI backend** | [aegis-ai-api-ulca.onrender.com](https://aegis-ai-api-ulca.onrender.com) | Live |
+| **Swagger / OpenAPI** | [API documentation](https://aegis-ai-api-ulca.onrender.com/docs) | Live |
+| **Health endpoint** | [`/health`](https://aegis-ai-api-ulca.onrender.com/health) | Live |
+| **PostgreSQL 16** | Render managed database | Provisioned |
+| **Redis / Key Value** | Render managed instance | Provisioned |
+
+The production deployment is connected to the GitHub `main` branch, so repository updates can automatically trigger new builds.
+
+```text
+GitHub / main
+      │
+      ├──────────────► Vercel
+      │                 │
+      │                 └── Next.js SOC Dashboard
+      │
+      └──────────────► Render
+                        │
+                        └── FastAPI Detection & Response API
+```
+
+The frontend is configured with:
+
+```text
+NEXT_PUBLIC_API_URL=https://aegis-ai-api-ulca.onrender.com
+```
+
+Production CORS is configured for the Vercel deployment while retaining localhost support for development.
+
+### Current cloud-infrastructure state
+
+The public deployment intentionally fails closed for integrations that do not yet have real provider credentials.
+
+| Capability | Cloud state |
+|---|---|
+| Core FastAPI SOC API | Active |
+| Next.js command center | Active |
+| JWT analyst/admin authentication | Active |
+| Prometheus endpoint | Active |
+| PostgreSQL 16 | Provisioned; application connection still requires the managed `DATABASE_URL` to be attached |
+| Redis | Provisioned; application connection still requires `REDIS_URL` and `REDIS_ENABLED=true` |
+| Kafka / Redpanda | Disabled in the public Render deployment |
+| Neo4j | Disabled in the public Render deployment |
+| OpenTelemetry / Jaeger | Disabled in the public Render deployment |
+| MISP | Requires real MISP endpoint/API key |
+| TAXII/STIX | Requires real TAXII collection credentials |
+| Cloudflare SOAR | Requires real Cloudflare credentials |
+| CrowdStrike SOAR | Requires real CrowdStrike credentials |
+| Microsoft Graph SOAR | Requires real Microsoft identity credentials |
+
+No external provider is reported as successfully executing unless it is actually configured and the provider API confirms the action.
+
+> **Deployment note:** Render's free web service is suitable for portfolio/demo operation and may cold-start after inactivity. The local Docker Compose stack remains the most complete all-in-one environment because it starts PostgreSQL/TimescaleDB, Redis, Redpanda, MinIO, Neo4j and Jaeger together.
 
 ---
 
