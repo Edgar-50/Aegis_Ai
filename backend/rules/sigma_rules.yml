@@ -1,0 +1,27 @@
+rules:
+  - id: AEGIS-SIGMA-001
+    title: Credential Brute Force Burst
+    level: high
+    event_type_contains: authentication
+    failed_attempts_gte: 8
+    mitre: T1110 - Brute Force
+  - id: AEGIS-SIGMA-002
+    title: Credential Dumping Tool Execution
+    level: critical
+    process_contains: mimikatz
+    mitre: T1003 - OS Credential Dumping
+  - id: AEGIS-SIGMA-003
+    title: Suspicious PowerShell Execution
+    level: medium
+    process_contains: powershell
+    mitre: T1059.001 - PowerShell
+  - id: AEGIS-SIGMA-004
+    title: Network Reconnaissance
+    level: high
+    event_type_contains: scan
+    mitre: T1046 - Network Service Discovery
+  - id: AEGIS-SIGMA-005
+    title: Possible C2 Beacon
+    level: critical
+    event_type_contains: c2
+    mitre: T1071 - Application Layer Protocol

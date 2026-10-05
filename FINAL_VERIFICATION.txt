@@ -1,0 +1,17 @@
+AegisAI Enterprise v1.0 — Final verification
+
+Verified in build workspace:
+- Python source compilation: PASS
+- Backend regression suite: 11/11 PASS
+- docker-compose.yml YAML parse: PASS
+- Compose service definition: db, redis, redpanda, minio, neo4j, jaeger, api, dashboard
+- Persistent volumes: PostgreSQL, Redis, Redpanda, evidence, audit, Neo4j
+
+Frontend production-build verification:
+- NOT COMPLETED in this workspace because npm dependency download timed out before node_modules was created.
+- The Docker dashboard image performs its own npm install/build on the target machine.
+
+Operational response behavior:
+- No simulated-success SOAR execution.
+- Real provider execution is approval-gated.
+- Unconfigured providers fail closed and are written to the audit chain.
