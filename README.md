@@ -17,7 +17,7 @@
 ![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-Tracing-000000?style=flat-square&logo=opentelemetry&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white)
 
-[Live Deployment](#live-deployment) · [Architecture](#system-architecture) · [Detection Engine](#detection-and-risk-engine) · [SOC Workflows](#security-operations-workflows) · [Integrations](#enterprise-integrations) · [Run Locally](#running-locally)
+[Live Deployment](#live-deployment) · [Platform Preview](#platform-preview) · [Architecture](#system-architecture) · [Detection Engine](#detection-and-risk-engine) · [SOC Workflows](#security-operations-workflows) · [Integrations](#enterprise-integrations) · [Run Locally](#running-locally)
 
 </div>
 
@@ -120,6 +120,62 @@ The public deployment intentionally fails closed for integrations that do not ye
 No external provider is reported as successfully executing unless it is actually configured and the provider API confirms the action.
 
 > **Deployment note:** Render's free web service is suitable for portfolio/demo operation and may cold-start after inactivity. The local Docker Compose stack remains the most complete all-in-one environment because it starts PostgreSQL/TimescaleDB, Redis, Redpanda, MinIO, Neo4j and Jaeger together.
+
+---
+
+# Platform Preview
+
+<div align="center">
+
+### Security Command Center — Live Application
+
+<img src="https://image.thum.io/get/width/1600/crop/900/noanimate/https://aegis-ai-tau-orpin.vercel.app" alt="AegisAI Security Command Center live deployment" width="100%">
+
+<sub>Live production capture of the deployed AegisAI Command Center.</sub>
+
+<br><br>
+
+### Threat Hunting Workspace
+
+<img src="docs/screenshots/threat-hunting.svg" alt="AegisAI Threat Hunting Workspace" width="100%">
+
+<sub>Entity-centric hunting, risky-user analysis, host activity and investigation pivots.</sub>
+
+<br><br>
+
+### MITRE ATT&CK Intelligence
+
+<img src="docs/screenshots/attack-workspace.svg" alt="AegisAI MITRE ATT&CK Workspace" width="100%">
+
+<sub>Technique heatmaps, tactic progression, technique frequency and incident-linked ATT&CK context.</sub>
+
+<br><br>
+
+### Incident Investigation & Attack Graph
+
+<img src="docs/screenshots/incident-investigation.svg" alt="AegisAI Incident Investigation Attack Graph" width="100%">
+
+<sub>Correlated incident context connecting source entities, identities, endpoints, credentials, evidence and ATT&CK techniques.</sub>
+
+<br><br>
+
+### SOAR Response Orchestration
+
+<img src="docs/screenshots/soar-workspace.svg" alt="AegisAI SOAR Response Workspace" width="100%">
+
+<sub>Approval-gated response actions, defensive playbooks, provider state and auditable execution.</sub>
+
+<br><br>
+
+### Aegis Copilot
+
+<img src="docs/screenshots/copilot.svg" alt="AegisAI Security Copilot Workspace" width="100%">
+
+<sub>Natural-language investigation grounded in security telemetry and ATT&CK-aware analyst context.</sub>
+
+</div>
+
+> **Visual note:** The Command Center above is captured from the live deployment. The additional workspace images are repository-native UI renders derived from AegisAI's implemented design language and planned/implemented workspace capabilities; they are included as product visualizations rather than represented as literal production captures.
 
 ---
 
